@@ -21,7 +21,6 @@
   |----App.jsx
   
 ```
-
 ---------------------------------------------------
 ``APP\REDUX\index.js``
 ```javascript
@@ -37,14 +36,15 @@ const redux = new Redux(init);
 
 export default redux;
 ```
-
 ---------------------------------------------------
 ``APP\ACTION\consts.js``
 
 ```javascript
 export const TEST = 'TEST';
-```
+export const TEST_OK = 'TEST_OK';
+export const TEST_ERR = 'TEST_ERR';
 
+```
 ---------------------------------------------------
 ``APP\ACTION\action.js``
 ```javascript
@@ -54,22 +54,44 @@ import * as consts from './consts';
 const doAction = (msg) => (dispatch) => {
     dispatch({
         type: consts.TEST,
-        payload: '...',
     });
+    
+    setTimeout(()=>{
+        if (msg){
+            dispatch({
+                type: consts.TEST_OK,
+                payload: msg,
+            });
+        }else{
+            dispatch({
+                type: consts.TEST_ERR,
+                payload: 'msg is empty',
+            });
+        }
+    },1000);
 };
 const action = (msg) => redux.store.dispatch(doAction(msg));
 export default action;
 ```
-
 ---------------------------------------------------
 ``APP\ACTION\reducer.js``
 ```javascript
 import redux from '../REDUX';
 import * as consts from './consts';
 
-const is = (action) => [consts.TEST].indexOf(action.type) >= 0;
+const is = (action) => Object.keys(consts).indexOf(action.type) >= 0;
 const reducer = (store, action) => {
     if (action.type === consts.TEST) {
+        return redux.storing(store)
+            .assign({ ui: { msg: 'wait...' } })
+            .store;
+    }
+    if (action.type === consts.TEST_OK) {
+        return redux.storing(store)
+            .assign({ ui: { msg: action.payload } })
+            .store;
+    }
+    if (action.type === consts.TEST_ERR) {
         return redux.storing(store)
             .assign({ ui: { msg: action.payload } })
             .store;
@@ -81,7 +103,6 @@ const reducer = (store, action) => {
 export default { is, reducer };
 
 ```
-
 ---------------------------------------------------
 ``APP\ACTION\index.js``
 ```javascript
@@ -93,8 +114,6 @@ redux.reducers.add(reducer);
 export default action;
 
 ```
-
-
 ---------------------------------------------------
 ``APP\App.jsx``
 ```javascript
@@ -123,7 +142,6 @@ class App extends React.Component {
     }
 }
 
-
 const mapStateToProps = (state) => ({
     reduxData: state,
 });
@@ -145,11 +163,9 @@ import App from './App.jsx';
 $(() => {
     ReacDOM.render(<Provider store={redux.store}> <App /></Provider>, DOM('#app'));
 });
-
-
 ```
-
-## Api
+----
+## API
 
 ### Redux.reducers.add(object) - добавляет объект редюсер (object это специфичный объект, см    `reducer.js`)
 ### Redux.add(object) - универсальная ф-ция добавления редюсеров/action

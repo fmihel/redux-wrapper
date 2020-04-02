@@ -14,7 +14,6 @@ class Redux {
         this.private = {
             storing: storing || new Storing(init),
         };
-        console.info('storing', this.private.storing);
         this.actions = {};
     }
 
@@ -54,5 +53,5 @@ class Redux {
 
 export default {
     Redux,
-    Storing
-}
+    Storing,
+};
