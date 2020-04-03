@@ -16,7 +16,7 @@
   |       |----action.js
   |       |----reducer.js
   |       |----consts.js
-  |       |----index.jss      
+  |       |----index.js      
   |----index.js
   |----App.jsx
   
@@ -80,24 +80,24 @@ import redux from '../REDUX';
 import * as consts from './consts';
 
 const is = (action) => Object.keys(consts).indexOf(action.type) >= 0;
-const reducer = (store, action) => {
+const reducer = (state, action) => {
     if (action.type === consts.TEST) {
-        return redux.storing(store)
+        return redux.change(state)
             .assign({ ui: { msg: 'wait...' } })
-            .store;
+            .state;
     }
     if (action.type === consts.TEST_OK) {
-        return redux.storing(store)
+        return redux.change(state)
             .assign({ ui: { msg: action.payload } })
-            .store;
+            .state;
     }
     if (action.type === consts.TEST_ERR) {
-        return redux.storing(store)
+        return redux.change(state)
             .assign({ ui: { msg: action.payload } })
-            .store;
+            .state;
     }
 
-    return store;
+    return state;
 };
 
 export default { is, reducer };
@@ -110,7 +110,7 @@ import redux from '../REDUX';
 import reducer from './reducer';
 import action from './action';
 
-redux.reducers.add(reducer);
+redux.add(reducer,{myAction:action});
 export default action;
 
 ```
@@ -120,7 +120,8 @@ export default action;
 import React from 'react';
 import {binds} from 'fmihel-browser-lib';
 import { connect } from 'react-redux';
-import action from './ACTION/';
+// import action from './ACTION/';
+import redux from './REDUX/';
 
 class App extends React.Component {
     constructor(p) {
@@ -129,7 +130,8 @@ class App extends React.Component {
     }
 
     onPress() {
-        action('send message');
+        // action('send message');
+        redux.actions.myAction('send message');
     }
 
     render() {
@@ -153,6 +155,7 @@ export default connect(mapStateToProps)(App);
 ``APP\index.js``
 ```javascript
 import redux from './REDUX';
+import './ACTION/';  // need for register reducer and action
 import { Provider } from 'react-redux';
 import { DOM } from 'fmihel-browser-lib';
 import React from 'react';
@@ -168,8 +171,8 @@ $(() => {
 ## API
 
 ### Redux.reducers.add(object) - добавляет объект редюсер (object это специфичный объект, см    `reducer.js`)
-### Redux.add(object) - универсальная ф-ция добавления редюсеров/action
+### Redux.addReducer(object) - ф-ция добавления редюсеров, аналогично Redux.reducers.add()
+### Redux.addReducer(object) - ф-ция добавления действия object = {funcName:action} funcName - имя по еоторому можно обратиться к действию используя redux.actions.funcName() 
 ### Redux.store - объект store 
-### Redux.storing(data) - утилита для работы с данными в обработчике редюсере 
-### Redux.storing(data).assign(data) 
-### Redux.actions - коллекция действий, создаваемая с помощью Redux.add({action:{actionName:func}})
+### Redux.change(data) - утилита для работы с данными в обработчике редюсере 
+### Redux.actions - коллекция действий, создаваемая с помощью Redux.addAction({aactionName:func})

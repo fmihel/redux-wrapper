@@ -17,37 +17,56 @@ class Redux {
         this.actions = {};
     }
 
-    storing(store) {
-        this.private.storing.setStore(store);
+    /**
+     * утилита для изменения состояния
+     * @param {object} state
+     */
+    change(state) {
+        this.private.storing.setState(state);
         return this.private.storing;
     }
 
     /**
-     * универсальна ф-ция добавления
-     * @param {object} o {reducer:obj} || {action:{name1:act1,name2:act2,name3:act3,...}}
-     * @return {undefined | action.name1 }
+     * одновременное добавление редюсера и действия
+     * описание reducerObject и actionObject см в addAction и addReducer
      */
-    add(o) {
-        try {
-            if ('reducer' in o) {
-                this.reducers.add(o.reducer);
-            }
-            if ('action' in o) {
-                const keys = Object.keys(o.action);
-                let ret = null;
-                keys.forEach((name) => {
-                    if (name in this.actions) {
-                        throw new Error(`action "${name}" already exists in redux.actions list`);
-                    }
-                    this.actions[name] = o.action[name];
-                    if (!ret) ret = o.action[name];
-                });
-                return ret;
-            }
-        } catch (e) {
-            console.error(e);
+    add(reducerObject, actionObject) {
+        if (!reducerObject || !actionObject) {
+            throw Error('both args redux.add must be not null');
         }
-        return undefined;
+        this.addAction(actionObject);
+        this.addReducer(reducerObject);
+    }
+
+    /**
+     * добавление редюсера
+     * @param {object} объект структуры { is , reducer } is-функция, reducer-ф-ция редюсера
+     * is - function(action) - ф-ция возвращает true если action.type соотвествует reducer
+     * reducer - function(state,action) - стандартная ф-ция для редюсера
+    */
+    addReducer(reducerObject) {
+        this.reducers.add(reducerObject);
+    }
+
+    /**
+     * добавление action действия
+     *
+     * @param {object} - actionObject = {funcName:action}
+     * funcName - имя по которому можно будет вызывать действие используя redux.actions.funcName
+     * если имя
+     * @return {action} - если действия добавлено много, то вернет первое
+    */
+    addAction(actionObject) {
+        let result;
+        const names = Object.keys(actionObject);
+        names.forEach((name) => {
+            if (name in this.actions) {
+                throw Error(`action "${name}" already exists in redux.actions list`);
+            }
+            this.actions[name] = actionObject[name];
+            if (!result) result = actionObject[name];
+        });
+        return result;
     }
 }
 

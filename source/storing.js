@@ -1,12 +1,12 @@
 
 export default class Storing {
     constructor(init) {
-        this.store = init;
+        this.state = init;
         return this;
     }
 
-    setStore(store) {
-        this.store = { ...store };
+    setState(state) {
+        this.state = { ...state };
     }
 
     /**
@@ -23,25 +23,25 @@ export default class Storing {
     */
     error(o) {
         if (!o || o === {}) {
-            this.store.error = { ...this.store.error, message: 'error', origin: o };
+            this.state.error = { ...this.state.error, message: 'error', origin: o };
         }
         if (typeof o === 'object') {
             if (o instanceof Error) {
-                this.store.error = { ...this.store.error, message: o.message, origin: o };
+                this.state.error = { ...this.state.error, message: o.message, origin: o };
             } else {
                 const name = Object.keys(o)[0];
-                if ('error' in this.store[name]) {
+                if ('error' in this.state[name]) {
                     if (typeof o[name] === 'object') {
-                        this.store[name].error = { ...this.store[name].error, message: ('message' in o[name] ? o[name].message : 'error'), origin: o[name] };
+                        this.state[name].error = { ...this.state[name].error, message: ('message' in o[name] ? o[name].message : 'error'), origin: o[name] };
                     } else {
-                        this.store[name].error = { ...this.store[name].error, message: o[name], origin: o[name] };
+                        this.state[name].error = { ...this.state[name].error, message: o[name], origin: o[name] };
                     }
                 } else {
                     this.error(o[name]);
                 }
             }
         } else {
-            this.store.error = { ...this.store.error, message: o, origin: o };
+            this.state.error = { ...this.state.error, message: o, origin: o };
         }
 
         return this;
@@ -73,16 +73,16 @@ export default class Storing {
 
     assign(fromObject, deep = false) {
         const self = this;
-        const { store } = self;
+        const { state } = self;
         const keys = Object.keys(fromObject);
         // eslint-disable-next-line array-callback-return
         keys.map((key) => {
             if (deep) {
                 // eslint-disable-next-line no-underscore-dangle
-                store[key] = self._assign(store[key], fromObject[key]);
+                state[key] = self._assign(state[key], fromObject[key]);
             } else {
-                store[key] = {
-                    ...store[key],
+                state[key] = {
+                    ...state[key],
                     ...fromObject[key],
                 };
             }
