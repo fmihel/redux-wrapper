@@ -47,46 +47,49 @@ export default class Storing {
         return this;
     }
 
-    // eslint-disable-next-line no-underscore-dangle
-    _assign(owner, from) {
-        const t = this;
-        const modif = owner;
-        const gettype = (o) => {
-            const type = typeof (o);
-            return ((type === 'object') && (Array.isArray(o))) ? 'array' : type;
-        };
-        const typeFrom = gettype(from);
-        const typeOwner = gettype(owner);
 
-        if ((typeOwner !== 'object') || (typeFrom !== 'object')) { return from; }
+    _extend(from, owner) {
+        const type = Array.isArray(from) ? 'array' : typeof from;
 
-        const keys = Object.keys(from);
-        // eslint-disable-next-line array-callback-return
-        keys.map((key) => {
-            if (key in modif) {
-                // eslint-disable-next-line no-underscore-dangle
-                modif[key] = t._assign(owner[key], from[key]);
-            } else { modif[key] = from[key]; }
-        });
-        return modif;
+        if (type === 'object') {
+            const names = Object.keys(from);
+            const to = {};
+            names.forEach((name) => {
+                if (name in owner) {
+                    to[name] = this._extend(from[name], owner[name]);
+                } else {
+                    to[name] = from[name];
+                }
+            });
+            return {
+                ...owner,
+                ...to,
+            };
+        }
+
+        return from;
     }
 
-    assign(fromObject, deep = false) {
-        const self = this;
-        const { state } = self;
-        const keys = Object.keys(fromObject);
-        // eslint-disable-next-line array-callback-return
-        keys.map((key) => {
-            if (deep) {
-                // eslint-disable-next-line no-underscore-dangle
-                state[key] = self._assign(state[key], fromObject[key]);
-            } else {
-                state[key] = {
-                    ...state[key],
-                    ...fromObject[key],
-                };
-            }
+    /**
+     * изменяет состояние устанавливая в Storing.state его копию
+     * @param {object} o - объект, который будет установлен поверх текущего состояния
+     * Ex:
+     * extend({ui:{ visible:{dialog:true}}})
+     * эквивалентно
+     * {...state,ui:{...state.ui,visible:{...state.ui.visible,dialog:true}}};
+     * @return {this}
+    */
+    extend(o) {
+        const names = Object.keys(o);
+        const to = {};
+        names.forEach((name) => {
+            to[name] = this._extend(o[name], this.state[name]);
         });
+
+        this.state = {
+            ...this.state,
+            ...to,
+        };
         return this;
     }
 }

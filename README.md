@@ -81,19 +81,20 @@ import * as consts from './consts';
 
 const is = (action) => Object.keys(consts).indexOf(action.type) >= 0;
 const reducer = (state, action) => {
+    
     if (action.type === consts.TEST) {
         return redux.change(state)
-            .assign({ ui: { msg: 'wait...' } })
+            .extend({ ui: { msg: 'wait...' } })
             .state;
     }
     if (action.type === consts.TEST_OK) {
         return redux.change(state)
-            .assign({ ui: { msg: action.payload } })
+            .extend({ ui: { msg: action.payload } })
             .state;
     }
     if (action.type === consts.TEST_ERR) {
         return redux.change(state)
-            .assign({ ui: { msg: action.payload } })
+            .extend({ ui: { msg: action.payload } })
             .state;
     }
 
