@@ -1,9 +1,9 @@
 {
   "name": "fmihel-redux-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "redux wrapper ",
   "main": "dist/fmihel-redux-wrapper.min.js",
-  "types":"source/types.d.ts",
+  "types": "source/types.d.ts",
   "scripts": {
     "test-build": "webpack webpack.config.test.js",
     "test-dev": "webpack-dev-server --config webpack.config.test.js",
@@ -14,7 +14,6 @@
     "git-commit": "git add . && git commit ",
     "git-push": "git push redux-wrapper && git push redux-wrapper --tags",
     "build": "npm run webpack-build && npm run webpack-build-min"
-
   },
   "repository": {
     "type": "git",
