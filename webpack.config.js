@@ -1,33 +1,37 @@
 const path = require('path');
-const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { defArg } = require('fmihel-server-lib');
 
 
-const SOURCE_PATH = './test/';
-const PUBLIC_PATH = './test-build/';
-const TEMPLATE_PATH = './test/';
-const MEDIA_PATH = './test/';
-// const HOSTNAME = 'localhost';
+const toProduction = defArg('prod');
+
+const SOURCE_PATH = './source/';
+const PUBLIC_PATH = './dist/';
 module.exports = {
+    mode: toProduction ? 'production' : 'development',
+    devtool: toProduction ? false : 'inline-source-map',
+
     entry: `${SOURCE_PATH}index.js`,
     output: {
         path: path.resolve(__dirname, PUBLIC_PATH),
-        filename: '[name].[contenthash].js',
+        filename: `fmihel-redux-wrapper${toProduction ? '.min.' : '.'}js`,
+        libraryTarget: 'umd',
+        globalObject: 'this',
+        library: 'fmihel-redux-wrapper',
     },
-    resolve: {
-        alias: {
-            Com: path.resolve(__dirname, 'app/source/components/'),
-        },
+    externals: {
+        lodash : {
+            commonjs: 'lodash',
+            commonjs2: 'lodash',
+            amd: 'lodash',
+            root: '_' // indicates global variable
+          },
+        redux:'redux',
+        'redux-thunk':'redux-thunk'  
+       // 'fmihel-lib': 'fmihel-lib',
+       // jquery: 'jquery',
     },
     module: {
         rules: [
-            {
-                test: /test\.js$/,
-                use: 'mocha-loader',
-                exclude: /node_modules/,
-            },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
@@ -35,32 +39,9 @@ module.exports = {
                     loader: 'babel-loader',
                 },
             },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
-            },
         ],
     },
-    mode: 'development',
-    devtool: 'source-map',
-    devServer: {
-        contentBase: PUBLIC_PATH,
-        port: 3000,
-        liveReload: true,
-    },
     plugins: [
-        new CleanWebpackPlugin(),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-        }),
-        new HtmlWebPackPlugin({
-            template: `${TEMPLATE_PATH}index.html`,
-            filename: './index.html',
-        }),
-        new CopyWebpackPlugin([
-            { from: `${MEDIA_PATH}favicon.ico` },
-        ]),
-
+        // new CleanWebpackPlugin(),
     ],
 };

@@ -2,12 +2,19 @@
   "name": "fmihel-redux-wrapper",
   "version": "1.0.2",
   "description": "redux wrapper ",
-  "main": "index.js",
+  "main": "dist/fmihel-redux-wrapper.min.js",
+  "types":"source/types.d.ts",
   "scripts": {
-    "test-build": "webpack",
-    "test-dev": "webpack-dev-server --config webpack.config.js",
-    "build-dist": "rollup -c rollup.config.js",
-    "build-dist-min": "rollup -c rollup.config.min.js"
+    "test-build": "webpack webpack.config.test.js",
+    "test-dev": "webpack-dev-server --config webpack.config.test.js",
+    "rollup-build-dist": "rollup -c rollusp.config.js",
+    "rollup-build-dist-min": "rollup -c rollup.config.min.js",
+    "webpack-build": "webpack",
+    "webpack-build-min": "webpack --prod",
+    "git-commit": "git add . && git commit ",
+    "git-push": "git push redux-wrapper && git push redux-wrapper --tags",
+    "build": "npm run webpack-build && npm run webpack-build-min"
+
   },
   "repository": {
     "type": "git",
@@ -39,6 +46,7 @@
     "eslint-import-resolver-webpack": "^0.11.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-react": "^7.17.0",
+    "fmihel-server-lib": "^0.1.0",
     "html-webpack-plugin": "^4.2.0",
     "mocha": "^6.2.2",
     "mocha-loader": "^3.0.0",
