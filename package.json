@@ -7,13 +7,14 @@
   "scripts": {
     "test-build": "webpack webpack.config.test.js",
     "test-dev": "webpack-dev-server --config webpack.config.test.js",
-    "rollup-build-dist": "rollup -c rollusp.config.js",
-    "rollup-build-dist-min": "rollup -c rollup.config.min.js",
     "webpack-build": "webpack",
     "webpack-build-min": "webpack --prod",
-    "git-commit": "git add . && git commit ",
     "git-push": "git push redux-wrapper && git push redux-wrapper --tags",
-    "build": "npm run webpack-build && npm run webpack-build-min"
+    "npm-publish-patch": "npm run build && npm version patch && npm publish && npm run git-push",
+    "npm-publish-minor": "npm run build && npm version minor && npm publish && npm run git-push",
+    "npm-publish-major": "npm run build && npm version major && npm publish && npm run git-push",
+    "build": "npm run webpack-build && npm run webpack-build-min",
+    "build-to-path": "webpack --prod --path"
   },
   "repository": {
     "type": "git",

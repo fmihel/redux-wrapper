@@ -68,6 +68,26 @@ class Redux {
         });
         return result;
     }
+
+    /** аналог store.subscribe
+     * @param {Function} обработчик куда попадаем после изменения состояния, новое состояние передается в обработчик
+     * @returns {Function} функция удаления обработчика
+    */
+    on(func) {
+        const delFunction = this.store.subscribe(() => {
+            const state = this.store.getState();
+            try {
+                func(state);
+            } catch (e) {
+                console.error(e);
+            }
+        });
+        return delFunction;
+    }
+
+    off(delFunction) {
+        delFunction();
+    }
 }
 
 export default {
