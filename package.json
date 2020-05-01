@@ -1,6 +1,6 @@
 {
   "name": "fmihel-redux-wrapper",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "redux wrapper ",
   "main": "dist/fmihel-redux-wrapper.min.js",
   "types": "source/types.d.ts",
