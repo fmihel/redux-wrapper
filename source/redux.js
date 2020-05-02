@@ -45,7 +45,7 @@ class Redux {
      * reducer - function(state,action) - стандартная ф-ция для редюсера
     */
     addReducer(reducerObject) {
-        this.reducers.add(reducerObject);
+        return this.reducers.add(reducerObject);
     }
 
     /**
