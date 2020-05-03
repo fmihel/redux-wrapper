@@ -65,6 +65,8 @@ export default class Storing {
                 ...owner,
                 ...to,
             };
+        } if (type === 'array') {
+            return [...from];
         }
 
         return from;

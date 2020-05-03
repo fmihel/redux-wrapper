@@ -7,7 +7,7 @@ const renderToRemotePath = defArg('path');
 
 const SOURCE_PATH = './source/';
 
-const PUBLIC_PATH = renderToRemotePath?'C:/work/aaa/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
+const PUBLIC_PATH = renderToRemotePath?'C:/work/admin/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
 module.exports = {
     mode: toProduction ? 'production' : 'development',
     devtool: toProduction ? false : 'inline-source-map',
