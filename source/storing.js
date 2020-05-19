@@ -29,15 +29,25 @@ export default class Storing {
             if (o instanceof Error) {
                 this.state.error = { ...this.state.error, message: o.message, origin: o };
             } else {
-                const name = Object.keys(o)[0];
-                if ('error' in this.state[name]) {
-                    if (typeof o[name] === 'object') {
-                        this.state[name].error = { ...this.state[name].error, message: ('message' in o[name] ? o[name].message : 'error'), origin: o[name] };
-                    } else {
-                        this.state[name].error = { ...this.state[name].error, message: o[name], origin: o[name] };
+                const keys = Object.keys(o);
+                try {
+                    if (keys.length !== 1) {
+                        throw Error('uncknown error struct');
                     }
-                } else {
-                    this.error(o[name]);
+                    const name = Object.keys(o)[0];
+
+                    if (typeof this.state[name] === 'object' && 'error' in this.state[name]) {
+                        if (typeof o[name] === 'object') {
+                            this.state[name].error = { ...this.state[name].error, message: ('message' in o[name] ? o[name].message : 'error'), origin: o[name] };
+                        } else {
+                            this.state[name].error = { ...this.state[name].error, message: o[name], origin: o[name] };
+                        }
+                    } else {
+                        this.error(o[name]);
+                    }
+                } catch (e) {
+                    console.warn(e.message, o);
+                    this.error('unknown error');
                 }
             }
         } else {

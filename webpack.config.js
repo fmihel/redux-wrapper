@@ -2,12 +2,12 @@ const path = require('path');
 const { defArg } = require('fmihel-server-lib');
 
 
-const toProduction = defArg('prod');
-const renderToRemotePath = defArg('path');
+const toRemotePath = defArg('path');
+const toProduction = !toRemotePath && defArg('prod');
 
 const SOURCE_PATH = './source/';
 
-const PUBLIC_PATH = renderToRemotePath?'C:/work/admin/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
+const PUBLIC_PATH = toRemotePath?'C:/work/admin/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
 module.exports = {
     mode: toProduction ? 'production' : 'development',
     devtool: toProduction ? false : 'inline-source-map',
@@ -15,7 +15,7 @@ module.exports = {
     entry: `${SOURCE_PATH}index.js`,
     output: {
         path: path.resolve(__dirname, PUBLIC_PATH),
-        filename: `fmihel-redux-wrapper${toProduction ? '.min.' : '.'}js`,
+        filename: 'fmihel-redux-wrapper'+((toProduction||toRemotePath)?'.min':'')+'.js',
         libraryTarget: 'umd',
         globalObject: 'this',
         library: 'fmihel-redux-wrapper',
