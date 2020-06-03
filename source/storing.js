@@ -76,7 +76,8 @@ export default class Storing {
                 ...to,
             };
         } if (type === 'array') {
-            return [...from];
+            // return [...from];
+            return from;
         }
 
         return from;

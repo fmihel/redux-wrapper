@@ -69,6 +69,11 @@ class Redux {
         return result;
     }
 
+    /** получить текщий объект состояния */
+    getState() {
+        return this.store.getState();
+    }
+
     /** аналог store.subscribe
      * @param {Function} обработчик куда попадаем после изменения состояния, новое состояние передается в обработчик
      * @returns {Function} функция удаления обработчика
