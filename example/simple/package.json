@@ -1,0 +1,60 @@
+{
+  "name": "fmihel-config-js",
+  "version": "0.0.1",
+  "description": "javascript project for tests",
+  "main": "server/index.js",
+  "scripts": {
+    "build-dev": "webpack",
+    "build-prod": "webpack --prod",
+    "dev-server": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmihel/config-js.git"
+  },
+  "keywords": [
+    "javascript",
+    "bootstrap",
+    "js",
+    "config"
+  ],
+  "author": "fmihel76@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fmihel/config-js/issues"
+  },
+  "homepage": "https://github.com/fmihel/config-js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "autoprefixer": "^9.7.6",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-react": "^7.19.0",
+    "fmihel-server-lib": "^0.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.14.0",
+    "postcss-loader": "^3.0.0",
+    "precss": "^4.0.0",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "fmihel-redux-wrapper": "^1.2.0",
+    "jquery": "^3.5.0",
+    "lodash": "^4.17.20",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
+}
