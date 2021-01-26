@@ -1,0 +1,12 @@
+$heightBtn : 32px;
+.btn{
+    width:100px;
+    height: $heightBtn;
+    text-align: center;
+    line-height: $heightBtn;
+    border: 1px solid gray;
+    &:active{
+        background-color: gray;
+        color:black;
+    }
+}

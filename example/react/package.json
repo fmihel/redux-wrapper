@@ -1,0 +1,64 @@
+{
+  "name": "fmihel-config-react",
+  "version": "0.0.1",
+  "description": "javascript project for tests",
+  "main": "server/index.js",
+  "scripts": {
+    "build": "webpack",
+    "run": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmihel/config-react.git"
+  },
+  "keywords": [
+    "javascript",
+    "bootstrap",
+    "js",
+    "config"
+  ],
+  "author": "fmihel76@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fmihel/config-react/issues"
+  },
+  "homepage": "https://github.com/fmihel/config-react#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-react": "^7.19.0",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.14.0",
+    "page-reload-webpack-plugin": "^0.2.4",
+    "postcss-loader": "^3.0.0",
+    "precss": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.2.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fmihel-browser-lib": "^1.4.13",
+    "fmihel-redux-wrapper": "^1.2.0",
+    "jquery": "^3.5.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  }
+}

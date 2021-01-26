@@ -174,7 +174,7 @@ $(() => {
 |----|----|
 |`Redux.reducers.add(object)`| добавляет объект редюсер (object это специфичный объект, см    `reducer.js`)|
 |`Redux.addReducer(object)`| ф-ция добавления редюсеров, аналогично Redux.reducers.add()|
-|`Redux.addReducer(object)`| ф-ция добавления действия object = {funcName:action} funcName - имя по еоторому можно обратиться к действию используя redux.actions.funcName()| 
+|`Redux.addAction(object)`| ф-ция добавления действия object = {funcName:action} funcName - имя по еоторому можно обратиться к действию используя redux.actions.funcName()| 
 |`Redux.store`|объект store| 
 |`Redux.change(data)`|утилита для работы с данными в обработчике редюсере|
 |`Redux.actions`| коллекция действий, создаваемая с помощью Redux.addAction({aactionName:func})|

@@ -1,0 +1,21 @@
+:root{
+    --fone:#242424;
+    --foneHover:#4B4B4B;
+    --foneBtn:#3A3A3A;
+    --foneBtnHover:#4B4B4B;
+    --foneDialog:#212120;
+
+    --color:#3291D7;
+    --colorHover:#3291D7;
+    --colorBtn:#3291D7;
+    --colorBtnHover:#3291D7;
+
+    --border:#525252;
+    --borderBtn:#525252;
+
+    --size:32px;
+    --sizePanel:38px;
+    --editHeight:28px;
+    --btnWidth:80px;
+    --gap:9px;
+}

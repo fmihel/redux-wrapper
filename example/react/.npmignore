@@ -1,8 +1,10 @@
 node_modules
-.vscode
+public
+
 test
+test_in_browser
 .eslintignore
 .gitignore
 .eslintrs.js
-webpack.config.js
-example
+.babelrc
+.vscode
