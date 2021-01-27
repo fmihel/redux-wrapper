@@ -47,7 +47,7 @@ export default class Reducers {
     handler(store, action) {
         const mod = this.modules.find((m) => m.is(action));
         if (mod) return mod.reducer(store, action);
-        console.error(`not define reducer for [${action.type}]. `);
+        if (action.type.indexOf('@@redux/INIT') === -1) console.error(`not define reducer for [${action.type}]. `);
 
         return store;
     }

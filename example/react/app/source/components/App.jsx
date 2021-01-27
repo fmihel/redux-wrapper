@@ -1,6 +1,6 @@
 import React from 'react';
 import { binds, flex } from 'fmihel-browser-lib';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import Btn from './Btn.jsx';
 import Idle from './Idle.jsx';
 import redux from '../../redux';
@@ -34,4 +34,4 @@ const mapStateToProps = (state) => ({
     reduxData: state,
 });
 
-export default connect(mapStateToProps)(App);
+export default redux.connect(mapStateToProps)(App);
