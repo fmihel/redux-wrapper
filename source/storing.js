@@ -105,4 +105,20 @@ export default class Storing {
         };
         return this;
     }
+    /** в отличии от extend перезаписывает значение состояния накладывая (пересекая) их
+     * Ex:
+     * state = {coin:800,may: {text:100,y:20}}
+     * replace({may:{more:100}})
+     * result:
+     * state = {coin:800,may: {more:100}}
+     */
+    replace(o){
+        const names = Object.keys(o);
+        
+        names.forEach((name) => {
+            this.state[name] = o[name]
+        });
+
+        return this;
+    }
 }

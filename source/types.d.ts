@@ -45,6 +45,15 @@ export class Storing{
      * @return {this}
     */
    error(o:any):object;
+   /** в отличии от extend перезаписывает значение состояния накладывая (пересекая) их
+     * Ex:
+     * state = {coin:800,may: {text:100,y:20}}
+     * replace({may:{more:100}})
+     * result:
+     * state = {coin:800,may: {more:100}}
+     */
+   replace(o:object):object;
+
 }
 export class Redux{
     init:object;
