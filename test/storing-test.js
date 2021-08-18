@@ -3,8 +3,154 @@ import chai from 'chai';
 import Storing from '../source/storing';
 
 describe('Storing', () => {
+    describe('replace', () => {
+        // -----------------------------------------------------------
+        it('replace 1', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const { state } = storing.replace({
+                msg: {
+                    name: 'soma',
+                },
+            });
+
+            const eq = {
+                msg: {
+                    name: 'soma',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+
+            // console.info('eq', init);
+            // console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+        it('replace 2', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                    test: 2,
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const { state } = storing.replace({
+                msg: {
+                    name: 'soma',
+                },
+            });
+
+            const eq = {
+                msg: {
+                    name: 'soma',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+
+            // console.info('eq', init);
+            // console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+        it('replace 3', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const { state } = storing.replace('ui', 'visible', 'dialog', 333);
+
+            const eq = {
+                msg: {
+                    name: 'Mike',
+                },
+                ui: {
+                    visible: {
+                        dialog: 333,
+                        shadow: false,
+                    },
+                },
+            };
+
+            // console.info('eq', init);
+            // console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+        it('replace 4', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: {
+                            tort: { obj: 'like' },
+                        },
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const send = { brone: '1' };
+            const { state } = storing.replace('ui', 'visible', 'shadow', 'tort', send);
+
+            send.brone = 333;
+            const eq = {
+                msg: {
+                    name: 'Mike',
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: {
+                            tort: { brone: 333 },
+                        },
+                    },
+                },
+            };
+
+            // console.info('eq', init);
+            console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+    });
     describe('extend', () => {
-    // -----------------------------------------------------------
+        // -----------------------------------------------------------
         it('extend 1', () => {
             const init = {
                 msg: {

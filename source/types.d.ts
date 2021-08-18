@@ -52,7 +52,7 @@ export class Storing{
      * result:
      * state = {coin:800,may: {more:100}}
      */
-   replace(o:object):object;
+   replace(o:any,...p:any):object;
 
 }
 export class Redux{

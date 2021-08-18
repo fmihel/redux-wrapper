@@ -105,19 +105,48 @@ export default class Storing {
         };
         return this;
     }
-    /** в отличии от extend перезаписывает значение состояния накладывая (пересекая) их
-     * Ex:
+
+    /** в отличии от extend перезаписывает значение состояния накладывая (заменяя) его
+     *
+     * Ex: замена переменной состояния самого верхнего уровня
      * state = {coin:800,may: {text:100,y:20}}
      * replace({may:{more:100}})
-     * result:
-     * state = {coin:800,may: {more:100}}
+     * result >> {coin:800,may: {more:100}}
+     *
+     * Ex2: замена состояния переменной указанного уровня
+     * state = {coin:800,may: {text:100,y:20}};
+     * replace("may","y",333)
+     * result >> {coin:800,may: {y:333,text:100}}
      */
-    replace(o){
-        const names = Object.keys(o);
-        
-        names.forEach((name) => {
-            this.state[name] = o[name]
-        });
+    replace(o, ...p) {
+        switch (typeof o) {
+        case 'object': {
+            const names = Object.keys(o);
+
+            names.forEach((name) => {
+                this.state[name] = o[name];
+            });
+            break;
+        }
+        case 'string': {
+            const deep = [o, ...p];
+            const data = p[p.length - 1];
+            deep.pop();
+
+            let current = this.state;
+            for (let i = 0; i < deep.length; i++) {
+                if (i === deep.length - 1) {
+                    current[deep[i]] = data;
+                } else {
+                    current = current[deep[i]];
+                }
+            }
+            break;
+        }
+        default: {
+            throw Error('error param , use only replace(object) or replace(string,string,...,object)');
+        }
+        }
 
         return this;
     }
