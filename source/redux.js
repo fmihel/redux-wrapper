@@ -47,11 +47,14 @@ class Redux {
      * одновременное добавление редюсера и действия
      * описание reducerObject и actionObject см в addAction и addReducer
      */
-    add(reducerObject, actionObject) {
-        if (!reducerObject || !actionObject) {
-            throw Error('both args redux.add must be not null');
+    add(reducerObject, actionObject = undefined) {
+        // if (!reducerObject || !actionObject) {
+        //    throw Error('both args redux.add must be not null');
+        // }
+        if (actionObject) {
+            this.addAction(actionObject);
         }
-        this.addAction(actionObject);
+
         this.addReducer(reducerObject);
     }
 

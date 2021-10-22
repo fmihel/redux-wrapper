@@ -3,6 +3,7 @@ export default class Reducers {
     constructor(init) {
         this.init = init;
         this.modules = [];
+        this.outers = [];
     }
 
 
@@ -45,8 +46,16 @@ export default class Reducers {
     }
 
     handler(store, action) {
+        const mods = this.modules.filter((mod) => mod.is(action));
+        if (mods.length) {
+            let state = store;
+            mods.map((mod) => { state = mod.reducer(state, action); });
+            return state;
+        }
+        /*
         const mod = this.modules.find((m) => m.is(action));
         if (mod) return mod.reducer(store, action);
+        */
         if (action.type.indexOf('@@redux/INIT') === -1) console.error(`not define reducer for [${action.type}]. `);
 
         return store;

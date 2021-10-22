@@ -172,10 +172,49 @@ $(() => {
 ## API
 |||
 |----|----|
-|`Redux.reducers.add(object)`| добавляет объект редюсер (object это специфичный объект, см    `reducer.js`)|
-|`Redux.addReducer(object)`| ф-ция добавления редюсеров, аналогично Redux.reducers.add()|
-|`Redux.addAction(object)`| ф-ция добавления действия object = {funcName:action} funcName - имя по еоторому можно обратиться к действию используя redux.actions.funcName()| 
+|`Redux.add(reducerObject,actionObject)`| добавляет объект редюсер связанный с ним action ( см.описание reducerObject и reducerAction)|
+|`Redux.add(reducerObject)`| добавляет дополнительный объект редюсер( см.описание reducerObject),который будет вызван после основного описанного в Redux.add(reducerObject,actionObject)|
 |`Redux.store`|объект store| 
 |`Redux.change(data)`|утилита для работы с данными в обработчике редюсере|
 |`Redux.actions`| коллекция действий, создаваемая с помощью Redux.addAction({aactionName:func})|
 |`Redux.on(func:Function)`|аналогично store.subscribe|
+|||
+
+## reducerObject
+Обьект должен содержать две ф-ции :
+
+```javascript
+const reducerObject = {
+    /** ф-ция определяющая принадлежность редюсера к соотвествующему action*/
+    is(action)=>{
+        return ...;// bool
+    },
+    /** ф-ция редюсера */
+    reducer(state,action)=>{
+         ....
+         return state;
+    }
+}
+```
+## actionObject
+Объект содержит ф-цию, по которой можно вызвать соотвествующий диспетчер действия
+```javascript
+const actionObject = {
+    ACTION_NAME(arg1,arg2,...)=> {
+        redux.store.dispatch(
+            (arg1,arg2,...)=>{
+                // действия
+            }
+        );
+    }
+}
+```
+
+Вызов действия можно осуществить 
+```javascript
+    ...
+    redux.actions.ACTION_NAME(arg1,arg2,...);
+    ...
+```
+
+

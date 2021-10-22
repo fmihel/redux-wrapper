@@ -10,6 +10,7 @@ const reducer = (state, action) => {
     }
 
     if (action.type === consts.DELAYED_OK) {
+        console.log(' original ');
         return redux.change(state)
             .idle(true)
             .extend({ test: { delayed: action.payload } })
