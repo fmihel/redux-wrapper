@@ -144,6 +144,71 @@ describe('Storing', () => {
             };
 
             // console.info('eq', init);
+            // console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+        it('replace 5', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                    proc: { day: [1, 2, 3] },
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const { state } = storing.replace('msg', 'name', 'text');
+
+            const eq = {
+                msg: {
+                    name: 'text',
+                    proc: { day: [1, 2, 3] },
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+
+            // console.info('eq', init);
+            // console.info('res', state);
+            chai.expect(state).to.deep.equal(eq);
+        });
+        // -----------------------------------------------------------
+        it('replace 6', () => {
+            const init = {
+                msg: {
+                    name: 'Mike',
+                    proc: { day: [1, 2, 3] },
+                },
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+            const storing = new Storing(init);
+            const { state } = storing.replace('msg', 'text');
+
+            const eq = {
+                msg: 'text',
+                ui: {
+                    visible: {
+                        dialog: true,
+                        shadow: false,
+                    },
+                },
+            };
+
+            // console.info('eq', init);
             console.info('res', state);
             chai.expect(state).to.deep.equal(eq);
         });
