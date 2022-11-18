@@ -43,24 +43,20 @@ export default data;
 import { Redux } from 'fmihel-redux-wrapper';
 import { connect } from 'react-redux';
 
-class ReactRedux extends Redux {
+export default class ReactRedux extends Redux {
     connect(...arg) {
         return connect(...arg);
     }
 }
 
-export default ReactRedux;
 ```
-
 ---------------------------------------------------
 
 ``APP\REDUX\index.js``
 ```javascript
 import Redux  from './ReactRedux';
 import data from './data';
-
-const redux = new Redux(data);
-export default redux;
+export default new Redux(data);
 ```
 ---------------------------------------------------
 ``APP\ACTION\consts.js``
@@ -69,7 +65,6 @@ export default redux;
 export const TEST = 'TEST';
 export const TEST_OK = 'TEST_OK';
 export const TEST_ERR = 'TEST_ERR';
-
 ```
 ---------------------------------------------------
 ``APP\ACTION\action.js``
@@ -154,17 +149,15 @@ export default action;
 ``APP\App.jsx``
 ```javascript
 import React from 'react';
-import {binds} from 'fmihel-browser-lib';
 import redux from './REDUX/';
 
 class App extends React.Component {
     constructor(p) {
         super(p);
-        binds(this,  'onPress');
+        this.onPress = this.onPress.bind(this);
     }
 
     onPress() {
-        // action('send message');
         redux.actions.myAction('send message');
     }
 
@@ -191,15 +184,16 @@ export default redux.connect(mapStateToProps)(App);
 import redux from './REDUX';
 import './ACTION/';  // need for register reducer and action
 import { Provider } from 'react-redux';
-import { DOM } from 'fmihel-browser-lib';
 import React from 'react';
-import ReacDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 
+window.onload = () => {
+    const dom = document.getElementById('app');
+    const root = createRoot(dom);
+    root.render(<Provider store={redux.store}><App /></Provider>);
+};
 
-$(() => {
-    ReacDOM.render(<Provider store={redux.store}> <App /></Provider>, DOM('#app'));
-});
 ```
 ----
 ## API
