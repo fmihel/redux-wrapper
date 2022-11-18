@@ -2,7 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import Reducers from './reducers';
 import Data from './data';
-import Storing from './storing';
 
 class Redux {
     /**
@@ -10,37 +9,14 @@ class Redux {
      * @param {*} init инициализирующие данные для redux
      * @param {*} storing класс реализующий методы обработки структуры в reducer, можно не указывать, тогда будет использоваться предустановленный
      */
-    constructor(init, storing = undefined) {
+    constructor(init) {
         this.init = init;
         this.reducers = new Reducers(init);
+        // eslint-disable-next-line default-param-last
         this.store = createStore((store = init, action) => this.reducers.handler(store, action), applyMiddleware(thunk));
         this.data = new Data(init);
 
-        let storingObject;
-        if (!storing) {
-            storingObject = new Storing(init);
-        } else {
-            const typeStoring = typeof storing;
-            if (typeStoring === 'function') {
-                const TStoring = storing;
-                storingObject = new TStoring(init);
-            } else if (typeStoring === 'object') {
-                storingObject = storing;
-            } else console.warn('storing must be class or object (see Redux.constructor(init,storing)');
-        }
-        this.private = {
-            storing: storingObject,
-        };
         this.actions = {};
-    }
-
-    /**
-     * утилита для изменения состояния
-     * @param {object} state
-     */
-    change(state) {
-        this.private.storing.setState(state);
-        return this.private.storing;
     }
 
     /**
@@ -117,5 +93,4 @@ class Redux {
 
 export default {
     Redux,
-    Storing,
 };

@@ -9,7 +9,7 @@ export default {
         format: 'cjs', // umd cjs iife
         name: 'fmihel_redux_wrapper',
     },
-    external:['redux','redux-thunk','lodash'],
+    external:['redux','redux-thunk'],
     plugins: [
 
         resolve(),

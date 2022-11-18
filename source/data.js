@@ -1,50 +1,3 @@
-import _ from 'lodash';
-
-class privateData {
-    static type(a) {
-        if (a === null) return 'null';
-        const res = typeof (a);
-        return ((res === 'object') && (Array.isArray(a))) ? 'array' : res;
-    }
-
-    static eq(a, b) {
-        try {
-            let res = true;
-            const aType = privateData.type(a);
-            const bType = privateData.type(b);
-
-            if (aType !== bType) { return false; }
-
-            if (aType === 'array') {
-                if (a.length !== b.length) { return false; }
-                for (let i = 0; i < a.length; i++) {
-                    res = privateData.eq(a[i], b[i]);
-                    if (!res) { return false; }
-                }
-            } else
-            if (aType === 'object') {
-                if ((b === {}) && (b !== a)) { return false; }
-
-                const keys = Object.keys(b);
-
-                for (let i = 0; i < keys.length; i++) {
-                    const key = keys[i];
-
-                    if (!(key in a)) { return false; }
-
-                    if (!privateData.eq(a[key], b[key])) { return false; }
-                }
-            } else
-            if (a !== b) { return false; }
-
-            return true;
-        } catch (e) {
-            console.log('ERROR>> Inside.eq ', 'a=', a, 'b=', b);
-            console.error(e);
-            return false;
-        }
-    }
-}
 
 export default class Data {
     constructor(init) {
@@ -76,19 +29,4 @@ export default class Data {
         keysData.forEach((key) => { this.init[key] = data[key]; });
     }
 
-    /**
-     *
-     * @param {*} o
-     * @param {*} key
-     */
-    changing(o, key, param = {}) {
-        const p = { clone: true, ...param };
-        if (!(key in this.cond) || (!privateData.eq(this.cond[key], o))) {
-            // this.cond[key] = $.extend(true, {}, o);
-            this.cond[key] = p.clone ? _.cloneDeep(o) : o;
-            return true;
-        }
-
-        return false;
-    }
 }

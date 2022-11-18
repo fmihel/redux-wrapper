@@ -5,12 +5,14 @@
 
 ## Начало работы / Install
 
-`npm i fmihel-redux-wrapper -D`
+`npm i fmihel-redux-wrapper `
 
 ## Структура приложения / Application struct
 ```
 [APP]
   |----[REDUX]
+  |       |----data.js
+  |       |----ReactRedux.js
   |       |----index.js
   |----[ACTION]
   |       |----action.js
@@ -22,18 +24,42 @@
   
 ```
 ---------------------------------------------------
-``APP\REDUX\index.js``
-```javascript
-import { Redux } from 'fmihel-redux-wrapper';
 
-const init = {
+``APP\REDUX\data.js``
+```javascript
+const data = {
     ui: {
         msg: 'text',
     },
 };
 
-const redux = new Redux(init);
+export default data;
 
+```
+---------------------------------------------------
+
+``APP\REDUX\ReactRedux.js``
+```javascript
+import { Redux } from 'fmihel-redux-wrapper';
+import { connect } from 'react-redux';
+
+class ReactRedux extends Redux {
+    connect(...arg) {
+        return connect(...arg);
+    }
+}
+
+export default ReactRedux;
+```
+
+---------------------------------------------------
+
+``APP\REDUX\index.js``
+```javascript
+import Redux  from './ReactRedux';
+import data from './data';
+
+const redux = new Redux(data);
 export default redux;
 ```
 ---------------------------------------------------
@@ -83,19 +109,28 @@ const is = (action) => Object.keys(consts).indexOf(action.type) >= 0;
 const reducer = (state, action) => {
     
     if (action.type === consts.TEST) {
-        return redux.change(state)
-            .extend({ ui: { msg: 'wait...' } })
-            .state;
+        return {...state,
+            ui:{
+                ...state.ui,
+                msg:action.payload
+            }
+        };
     }
     if (action.type === consts.TEST_OK) {
-        return redux.change(state)
-            .extend({ ui: { msg: action.payload } })
-            .state;
+        return {...state,
+            ui:{
+                ...state.ui,
+                msg:action.payload
+            }
+        };
     }
     if (action.type === consts.TEST_ERR) {
-        return redux.change(state)
-            .extend({ ui: { msg: action.payload } })
-            .state;
+        return {...state,
+            ui:{
+                ...state.ui,
+                msg:action.payload
+            }
+        };
     }
 
     return state;
@@ -120,8 +155,6 @@ export default action;
 ```javascript
 import React from 'react';
 import {binds} from 'fmihel-browser-lib';
-import { connect } from 'react-redux';
-// import action from './ACTION/';
 import redux from './REDUX/';
 
 class App extends React.Component {
@@ -149,7 +182,7 @@ const mapStateToProps = (state) => ({
     reduxData: state,
 });
 
-export default connect(mapStateToProps)(App);
+export default redux.connect(mapStateToProps)(App);
 
 ```
 ---------------------------------------------------
@@ -175,7 +208,6 @@ $(() => {
 |`Redux.add(reducerObject,actionObject)`| добавляет объект редюсер связанный с ним action ( см.описание reducerObject и reducerAction)|
 |`Redux.add(reducerObject)`| добавляет дополнительный объект редюсер( см.описание reducerObject),который будет вызван после основного описанного в Redux.add(reducerObject,actionObject)|
 |`Redux.store`|объект store| 
-|`Redux.change(data)`|утилита для работы с данными в обработчике редюсере|
 |`Redux.actions`| коллекция действий, создаваемая с помощью Redux.addAction({aactionName:func})|
 |`Redux.on(func:Function)`|аналогично store.subscribe|
 |||

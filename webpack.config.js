@@ -23,12 +23,14 @@ module.exports = {
         library: 'fmihel-redux-wrapper',
     },
     externals: {
+       /*
         lodash : {
             commonjs: 'lodash',
             commonjs2: 'lodash',
             amd: 'lodash',
             root: '_' // indicates global variable
           },
+          */
         redux:'redux',
         'redux-thunk':'redux-thunk'  
        // 'fmihel-lib': 'fmihel-lib',
