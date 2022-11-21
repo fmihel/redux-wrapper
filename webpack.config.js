@@ -8,7 +8,7 @@ const toProduction = !toRemotePath && defArg('prod');
 const SOURCE_PATH = './source/';
 
 //const PUBLIC_PATH = toRemotePath?'C:/work/admin/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
-const PUBLIC_PATH = toRemotePath?'E:/work/fmihel/redux-wrapper/example/simple/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
+const PUBLIC_PATH = toRemotePath?'C:\\work\\test2\\node_modules\\fmihel-redux-wrapper\\dist\\':'./dist/';
 //const PUBLIC_PATH = toRemotePath?'E:/work/windeco/order-karniz/node_modules/fmihel-redux-wrapper/dist/':'./dist/';
 module.exports = {
     mode: toProduction ? 'production' : 'development',
