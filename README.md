@@ -188,11 +188,9 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.jsx';
 
-window.onload = () => {
-    const dom = document.getElementById('app');
-    const root = createRoot(dom);
-    root.render(<Provider store={redux.store}><App /></Provider>);
-};
+const dom = document.getElementById('app');
+const root = createRoot(dom);
+root.render(<Provider store={redux.store}><App /></Provider>);
 
 ```
 ----

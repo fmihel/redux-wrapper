@@ -1,7 +1,6 @@
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import Reducers from './reducers';
-import Data from './data';
 
 class Redux {
     /**
@@ -14,7 +13,6 @@ class Redux {
         this.reducers = new Reducers(init);
         // eslint-disable-next-line default-param-last
         this.store = createStore((store = init, action) => this.reducers.handler(store, action), applyMiddleware(thunk));
-        this.data = new Data(init);
 
         this.actions = {};
     }

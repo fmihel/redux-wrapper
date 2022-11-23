@@ -1,11 +1,9 @@
-
 export default class Reducers {
     constructor(init) {
         this.init = init;
         this.modules = [];
         this.outers = [];
     }
-
 
     add(...args) {
         let result;

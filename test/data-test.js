@@ -3,7 +3,7 @@ import chai from 'chai';
 import Data from '../source/data';
 
 describe('Data', () => {
-    it('attach', () => {
+    /* it('attach', () => {
         const init = { msg: { name: 'Mike' } };
         const data = new Data(init);
         data.attach({
@@ -26,4 +26,5 @@ describe('Data', () => {
         }).to.throw();
         done();
     });
+    */
 });
